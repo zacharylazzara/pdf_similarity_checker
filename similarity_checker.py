@@ -200,7 +200,7 @@ for index, row in sim_df.iterrows():
 def sent_words(sents, stoplist = stopwords.words("english")):
     stoplist.extend(string.punctuation)
     stoplist.extend(["``", "''", "\"\"", "e.g.", "etal"])
-    return [word for sent in sents for word in nltk.word_tokenize(sent) if word not in stoplist]
+    return [word for sent in sents for word in nltk.word_tokenize(sent) if word.lower() not in stoplist]
 
 t_words = filter(str.isalpha, sent_words(t_sents))
 r_words = filter(str.isalpha, sent_words(r_sents))
@@ -263,12 +263,513 @@ print("\nAVERAGE SIMILARITY:\t", sim_df[cols[2]].mean())
 
 
 
-# Test run results (from 26/07/2021)
+# Test run results (from 02/08/2021)
 # These appear to be references to the same works between the two papers
 # It may be useful to use this to our advantage somehow, perhaps we can use it as
 # an optimization method, or use it to help guide our search? This will also help
 # if we need to train the machine, as we can use referenced materials to figure out
 # how these references are used/how they support the document
 
-# NOTE: I've removed the test results since they take up a lot of space and don't seem to be needed anymore
 
+
+
+
+'''
+Journal of Neurophysiology, 71, 1959–1975.
+
+2544342: REFERENCE SENTENCE:
+
+Journal of Consciousness Studies, 2(3),
+     200–219.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2544354: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2544354: THESIS SENTENCE:
+
+Journal of Neurophysiology, 71, 1959–1975.
+
+2544354: REFERENCE SENTENCE:
+
+Journal of Consciousness Studies, 17,
+     7–65.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2544357: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2544357: THESIS SENTENCE:
+
+Journal of Neurophysiology, 71, 1959–1975.
+
+2544357: REFERENCE SENTENCE:
+
+Journal of Consciousness Studies,
+     19(7–8), 26–44.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2544376: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2544376: THESIS SENTENCE:
+
+Journal of Neurophysiology, 71, 1959–1975.
+
+2544376: REFERENCE SENTENCE:
+
+Journal of Artificial General Intelligence, 4(3), 130–152.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2544390: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2544390: THESIS SENTENCE:
+
+Journal of Neurophysiology, 71, 1959–1975.
+
+2544390: REFERENCE SENTENCE:
+
+International
+     Journal of Machine Consciousness, 4(1).
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2544396: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2544396: THESIS SENTENCE:
+
+Journal of Neurophysiology, 71, 1959–1975.
+
+2544396: REFERENCE SENTENCE:
+
+Journal of Philosophy, 83, 291–295.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2544403: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2544403: THESIS SENTENCE:
+
+Journal of Neurophysiology, 71, 1959–1975.
+
+2544403: REFERENCE SENTENCE:
+
+The Journal of Neuroscience, 28(12), 2959–2964.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2544441: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2544441: THESIS SENTENCE:
+
+Journal of Neurophysiology, 71, 1959–1975.
+
+2544441: REFERENCE SENTENCE:
+
+Journal of Trauma, 63(5), 1010–1013.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2544499: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2544499: THESIS SENTENCE:
+
+Journal of Neurophysiology, 71, 1959–1975.
+
+2544499: REFERENCE SENTENCE:
+
+Journal of Consciousness Studies, 6(1), 49–60.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2555511: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2555511: THESIS SENTENCE:
+
+The Journal of Neuroscience, 20, 6594–6611.
+
+2555511: REFERENCE SENTENCE:
+
+Journal of Consciousness Studies, 2(3),
+     200–219.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2555523: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2555523: THESIS SENTENCE:
+
+The Journal of Neuroscience, 20, 6594–6611.
+
+2555523: REFERENCE SENTENCE:
+
+Journal of Consciousness Studies, 17,
+     7–65.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2555526: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2555526: THESIS SENTENCE:
+
+The Journal of Neuroscience, 20, 6594–6611.
+
+2555526: REFERENCE SENTENCE:
+
+Journal of Consciousness Studies,
+     19(7–8), 26–44.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2555545: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2555545: THESIS SENTENCE:
+
+The Journal of Neuroscience, 20, 6594–6611.
+
+2555545: REFERENCE SENTENCE:
+
+Journal of Artificial General Intelligence, 4(3), 130–152.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2555559: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2555559: THESIS SENTENCE:
+
+The Journal of Neuroscience, 20, 6594–6611.
+
+2555559: REFERENCE SENTENCE:
+
+International
+     Journal of Machine Consciousness, 4(1).
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2555565: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2555565: THESIS SENTENCE:
+
+The Journal of Neuroscience, 20, 6594–6611.
+
+2555565: REFERENCE SENTENCE:
+
+Journal of Philosophy, 83, 291–295.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2555572: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2555572: THESIS SENTENCE:
+
+The Journal of Neuroscience, 20, 6594–6611.
+
+2555572: REFERENCE SENTENCE:
+
+The Journal of Neuroscience, 28(12), 2959–2964.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2555610: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2555610: THESIS SENTENCE:
+
+The Journal of Neuroscience, 20, 6594–6611.
+
+2555610: REFERENCE SENTENCE:
+
+Journal of Trauma, 63(5), 1010–1013.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2555668: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2555668: THESIS SENTENCE:
+
+The Journal of Neuroscience, 20, 6594–6611.
+
+2555668: REFERENCE SENTENCE:
+
+Journal of Consciousness Studies, 6(1), 49–60.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2556362: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2556362: THESIS SENTENCE:
+
+http://dx.doi.org/10.1186/1471-2202-5-42.
+
+2556362: REFERENCE SENTENCE:
+
+The project’s initial goal is to scan, upload, and emulate a
+complete mouse brain within 5 years (https://www.humanbrainproject.eu/strategic-
+mouse-brain-data).
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2556364: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2556364: THESIS SENTENCE:
+
+http://dx.doi.org/10.1186/1471-2202-5-42.
+
+2556364: REFERENCE SENTENCE:
+
+The Human Brain Project aims to use the knowledge gained from
+the mouse emulation to scan and upload parts of the human brain within 10 years
+(https://www.humanbrainproject.eu/strategic-human-brain-data) and the ultimate
+goal of the project is to emulate the complete human brain (http://tierra.aslab.upm.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2556375: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2556375: THESIS SENTENCE:
+
+http://dx.doi.org/10.1186/1471-2202-5-42.
+
+2556375: REFERENCE SENTENCE:
+
+2000; http://
+www.fhi.ox.ac.uk/brain-emulation-roadmap-report.pdf; Hayworth 2010).
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2556377: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2556377: THESIS SENTENCE:
+
+http://dx.doi.org/10.1186/1471-2202-5-42.
+
+2556377: REFERENCE SENTENCE:
+
+Uploading and Branching Identity                                                                       19
+Hayworth 2012; http://www.brainpreservation.org/content/overview).
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2556853: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2556853: THESIS SENTENCE:
+
+http://dx.doi.org/10.1186/1471-2202-5-42.
+
+2556853: REFERENCE SENTENCE:
+
+http://plato.stanford.edu/archives/spr2014/
+     entries/consciousness-temporal/
+Efron, R. (1970).
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2556871: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2556871: THESIS SENTENCE:
+
+http://dx.doi.org/10.1186/1471-2202-5-42.
+
+2556871: REFERENCE SENTENCE:
+
+Essay published online at http://brainpreservation.org/content/killed-bad-philosophy
+Hayworth, K. (2012).
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2556898: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2556898: THESIS SENTENCE:
+
+http://dx.doi.org/10.1186/1471-2202-5-42.
+
+2556898: REFERENCE SENTENCE:
+
+http://plato.stanford.edu/archives/fall2013/entries/functionalism/
+Levy, J.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2556917: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2556917: THESIS SENTENCE:
+
+http://dx.doi.org/10.1186/1471-2202-5-42.
+
+2556917: REFERENCE SENTENCE:
+
+http://plato.stanford.edu/archives/sum2010/
+      entries/qualia-knowledge/
+Olson, E. (2010).
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2556921: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2556921: THESIS SENTENCE:
+
+http://dx.doi.org/10.1186/1471-2202-5-42.
+
+2556921: REFERENCE SENTENCE:
+
+http://plato.stanford.edu/archives/win2010/entries/identity-personal/
+Oncel, D., Demetriades, D., Gruen, P., et al.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2556952: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2556952: THESIS SENTENCE:
+
+http://dx.doi.org/10.1186/1471-2202-5-42.
+
+2556952: REFERENCE SENTENCE:
+
+http://plato.stanford.edu/archives/win2012/entries/dualism/
+Ruhnau, E. (1995).
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2556968: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2556968: THESIS SENTENCE:
+
+http://dx.doi.org/10.1186/1471-2202-5-42.
+
+2556968: REFERENCE SENTENCE:
+
+http://www.fhi.ox.ac.uk/brain-emulation-roadmap-report.pdf
+Shoemaker, S. (1984).
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2557501: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2557501: THESIS SENTENCE:
+
+Zoccolan, D., Kouh, M., Poggio, T., & DiCarlo, J. J.
+
+2557501: REFERENCE SENTENCE:
+
+Coren, S., Ward, L., & Enns, J.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2557550: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2557550: THESIS SENTENCE:
+
+Zoccolan, D., Kouh, M., Poggio, T., & DiCarlo, J. J.
+
+2557550: REFERENCE SENTENCE:
+
+Levin, J.
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+2557555: SUPPORTING SENTENCE (Similarity: 1.0)
+----------------------------------------------------------------------
+
+2557555: THESIS SENTENCE:
+
+Zoccolan, D., Kouh, M., Poggio, T., & DiCarlo, J. J.
+
+2557555: REFERENCE SENTENCE:
+
+http://plato.stanford.edu/archives/fall2013/entries/functionalism/
+Levy, J.
+
+----------------------------------------------------------------------
+
+TOP 10 MOST FREQUENT WORDS IN THESIS:
+        WORD  FREQUENCY
+0  Grossberg        406
+1        The        405
+2     visual        264
+3     object        228
+4  conscious        226
+5   learning        223
+6        Fig        222
+7      model        204
+8  attention        189
+9   category        179
+
+----------------------------------------------------------------------
+
+TOP 10 MOST FREQUENT WORDS IN REFERENCE:
+            WORD  FREQUENCY
+0       identity        177
+1          brain        137
+2  consciousness        128
+3     continuity         90
+4         qualia         82
+5            The         77
+6          would         60
+7      uploading         59
+8      branching         53
+9       personal         46
+
+----------------------------------------------------------------------
+
+AVERAGE SIMILARITY:	 0.9999997260945465'''
